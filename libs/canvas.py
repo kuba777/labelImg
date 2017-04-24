@@ -181,6 +181,7 @@ class Canvas(QWidget):
             self.hVertex, self.hShape = None, None
 
     def mousePressEvent(self, ev):
+        print('\nmousePressEvent')
         pos = self.transformPos(ev.pos())
 
         if ev.button() == Qt.LeftButton:
@@ -196,6 +197,7 @@ class Canvas(QWidget):
             self.repaint()
 
     def mouseReleaseEvent(self, ev):
+        print('mouseReleaseEvent')
         if ev.button() == Qt.RightButton:
             menu = self.menus[bool(self.selectedShapeCopy)]
             self.restoreCursor()
@@ -206,10 +208,12 @@ class Canvas(QWidget):
                 self.repaint()
         elif ev.button() == Qt.LeftButton and self.selectedShape:
             self.overrideCursor(CURSOR_GRAB)
-        elif ev.button() == Qt.LeftButton:
-            pos = self.transformPos(ev.pos())
-            if self.drawing():
-                self.handleDrawing(pos)
+        # current selection method -> "click, drag, click"
+        # uncomment to enable "click-hold, drag, release" rectangle selection method
+        # elif ev.button() == Qt.LeftButton:
+        #     pos = self.transformPos(ev.pos())
+        #     if self.drawing():
+        #         self.handleDrawing(pos)
 
     def endMove(self, copy=False):
         assert self.selectedShape and self.selectedShapeCopy

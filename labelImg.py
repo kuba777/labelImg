@@ -452,12 +452,15 @@ class MainWindow(QMainWindow, WindowMixin):
 
         self.populateModeActions()
 
+        # Enable "Advanced mode" at startup
+        # self.toggleAdvancedMode()
+
     ## Support Functions ##
 
     def noShapes(self):
         return not self.itemsToShapes
 
-    def toggleAdvancedMode(self, value=True):
+    def toggleAdvancedMode(self, value=False):  # "value=False" enables advanced mode on startup
         self._beginner = not value
         self.canvas.setEditing(True)
         self.populateModeActions()
@@ -549,6 +552,11 @@ class MainWindow(QMainWindow, WindowMixin):
         assert self.beginner()
         self.canvas.setEditing(False)
         self.actions.create.setEnabled(False)
+        # place predefined rect-box here
+        print('labelImg.createShape')
+
+
+
 
     def toggleDrawingSensitive(self, drawing=True):
         """In the middle of drawing, toggling between modes should be disabled."""
